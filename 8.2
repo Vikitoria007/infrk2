@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Пожалуйста, укажите директорию и расширение файлов."
+  exit 1
+fi
+
+directory="$1"
+extension="$2"
+
+if [ ! -d "$directory" ]; then
+  echo "Директория не найдена."
+  exit 1
+fi
+
+found_files=$(find "$directory" -maxdepth -1 -name "*.$extension" 2>/dev/null)
+
+if [ -z "$found_files" ]; then
+  echo "Файлы с расширением $extension не найдены."
+else
+  echo "Найденные файлы:"
+  echo "$found_files"
+fi
+
+exit 0
